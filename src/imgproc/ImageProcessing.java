@@ -9,17 +9,20 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class ImageProcessing {
+	
 	public static void main(String[] args) {
     // The provided images are apple.jpg, flower.jpg, and kitten.jpg
 		int[][] imageData = imgToTwoD("./Images/apple.jpg");
     // Or load your own image using a URL!
 		//int[][] imageData = imgToTwoD("https://content.codecademy.com/projects/project_thumbnails/phaser/bug-dodger.png");
+		
 		viewImageData(imageData);
-		int[][] trimmed = trimBorders(imageData, 60);
-		twoDToImage(trimmed, "./trimmed_apple.jpg");
+		int negative[][] = negativeColor(imageData);
+		//int[][] trimmed = trimBorders(imageData, 60);
+		twoDToImage(negative, "./Output/negative_apple.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
-	}
+	}//MAIN END
 	
 	// Image Processing Methods
 	public static int[][] trimBorders(int[][] imageTwoD, int pixelCount) {
@@ -29,6 +32,7 @@ public class ImageProcessing {
 			for (int i = 0; i < trimmedImg.length; i++) {
 				for (int j = 0; j < trimmedImg[i].length; j++) {
 					trimmedImg[i][j] = imageTwoD[i + pixelCount][j + pixelCount];
+				
 				}
 			}
 			return trimmedImg;
@@ -37,10 +41,24 @@ public class ImageProcessing {
 			return imageTwoD;
 		}
 	}
+	
 	public static int[][] negativeColor(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
-		return null;
+		int[][] negativeImage = new int [imageTwoD.length][imageTwoD[0].length];
+		for (int i = 0; i < imageTwoD.length; i++) {
+			for (int j = 0; j < imageTwoD[i].length; j++) {
+				int[] rgba = getRGBAFromPixel(imageTwoD[i][j]);
+				rgba[0] = 255 - rgba[0];
+				rgba[1] = 255 - rgba[1];
+				rgba[2] = 255 - rgba[2];
+				int hex = getColorIntValFromRGBA(rgba);
+				negativeImage[i][j] = hex;
+				
+			}
+		}
+		return negativeImage;
 	}
+	
 	public static int[][] stretchHorizontally(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
 		return null;
