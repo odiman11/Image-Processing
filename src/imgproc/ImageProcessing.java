@@ -20,9 +20,10 @@ public class ImageProcessing {
 		//int negative[][] = negativeColor(imageData);
 		//int[][] stretchedH = stretchHorizontally(imageData);
 		//int[][] shrinkV = shrinkVertically(imageData);
-		int[][] invert = invertImage(imageData);
+		//int[][] invert = invertImage(imageData);
+		int[][] filered = colorFilter(imageData, -75, 30, -30);
 		//int[][] trimmed = trimBorders(imageData, 60);
-		twoDToImage(invert, "./Output/invert_apple.jpg");
+		twoDToImage(filered, "./Output/filered_apple.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
 	}//MAIN END
@@ -35,7 +36,6 @@ public class ImageProcessing {
 			for (int i = 0; i < trimmedImg.length; i++) {
 				for (int j = 0; j < trimmedImg[i].length; j++) {
 					trimmedImg[i][j] = imageTwoD[i + pixelCount][j + pixelCount];
-				
 				}
 			}
 			return trimmedImg;
@@ -102,8 +102,46 @@ public class ImageProcessing {
 	
 	public static int[][] colorFilter(int[][] imageTwoD, int redChangeValue, int greenChangeValue, int blueChangeValue) {
 		// TODO: Fill in the code for this method
-		return null;
+		int[][] filtred = new int[imageTwoD.length][imageTwoD[0].length];
+		
+		for (int i = 0; i < imageTwoD.length; i++) {
+			for (int j = 0; j < imageTwoD[i].length; j++) {
+				int[] rgba = getRGBAFromPixel(imageTwoD[i][j]);
+				
+				int red = rgba[0] + redChangeValue;
+				if(red > 255) {
+					rgba[0] = 255;
+				} else if (red < 0) {
+					rgba[0] = 0;
+				} else {
+					rgba[0] = red;
+				}
+				
+				int green = rgba[1] + greenChangeValue;
+				if(green > 255) {
+					rgba[1] = 255;
+				} else if (green < 0) {
+					rgba[1] = 0;
+				} else {
+					rgba[1] = green;
+				}
+				
+				int blue = rgba[2] + blueChangeValue;
+				if(blue > 255) {
+					rgba[2] = 255;
+				} else if (blue < 0) {
+					rgba[2] = 0;
+				} else {
+					rgba[2] = blue;
+				}
+				
+				int hex = getColorIntValFromRGBA(rgba);
+				filtred[i][j] = hex;
+			}
+		}
+		return filtred;
 	}
+	
 	// Painting Methods
 	public static int[][] paintRandomImage(int[][] canvas) {
 		// TODO: Fill in the code for this method
@@ -117,6 +155,7 @@ public class ImageProcessing {
 		// TODO: Fill in the code for this method
 		return null;
 	}
+	
 	// Utility Methods
 	public static int[][] imgToTwoD(String inputFileOrLink) {
 		try {
