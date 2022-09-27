@@ -21,9 +21,11 @@ public class ImageProcessing {
 		//int[][] stretchedH = stretchHorizontally(imageData);
 		//int[][] shrinkV = shrinkVertically(imageData);
 		//int[][] invert = invertImage(imageData);
-		int[][] filered = colorFilter(imageData, -75, 30, -30);
+		//int[][] filered = colorFilter(imageData, -75, 30, -30);
+		int[][] newCanvas = new int[500][500];
+		int[][] randomImg = paintRandomImage(newCanvas);
 		//int[][] trimmed = trimBorders(imageData, 60);
-		twoDToImage(filered, "./Output/filered_apple.jpg");
+		twoDToImage(randomImg, "./Output/randomImg_apple.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
 	}//MAIN END
@@ -145,8 +147,17 @@ public class ImageProcessing {
 	// Painting Methods
 	public static int[][] paintRandomImage(int[][] canvas) {
 		// TODO: Fill in the code for this method
-		return null;
+		
+		Random rand = new Random();
+		for(int i = 0; i < canvas.length; i++) {
+			for(int j = 0; j < canvas[0].length; j++) {
+				int[] rgba = {rand.nextInt(256), rand.nextInt(256), rand.nextInt(256), 255};
+				canvas[i][j] = getColorIntValFromRGBA(rgba);
+			}
+		}
+		return canvas;
 	}
+	
 	public static int[][] paintRectangle(int[][] canvas, int width, int height, int rowPosition, int colPosition, int color) {
 		// TODO: Fill in the code for this method
 		return null;
