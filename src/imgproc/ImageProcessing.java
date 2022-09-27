@@ -16,10 +16,11 @@ public class ImageProcessing {
     // Or load your own image using a URL!
 		//int[][] imageData = imgToTwoD("https://content.codecademy.com/projects/project_thumbnails/phaser/bug-dodger.png");
 		
-		viewImageData(imageData);
-		int negative[][] = negativeColor(imageData);
+		//viewImageData(imageData);
+		//int negative[][] = negativeColor(imageData);
+		int[][] stretchedH = stretchHorizontally(imageData);
 		//int[][] trimmed = trimBorders(imageData, 60);
-		twoDToImage(negative, "./Output/negative_apple.jpg");
+		twoDToImage(stretchedH, "./Output/stretchedH_apple.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
 	}//MAIN END
@@ -61,8 +62,19 @@ public class ImageProcessing {
 	
 	public static int[][] stretchHorizontally(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
-		return null;
+		int it = 0;
+		int[][] stretchHImage = new int [imageTwoD.length][imageTwoD[0].length * 2];
+		
+		for (int i = 0; i < imageTwoD.length; i++) {
+			for (int j = 0; j < imageTwoD[i].length; j++) {
+				it = j*2;
+				stretchHImage[i][it] = imageTwoD[i][j];
+				stretchHImage[i][it+1] = imageTwoD[i][j];
+			}
+		}
+		return stretchHImage;
 	}
+	
 	public static int[][] shrinkVertically(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
 		return null;
