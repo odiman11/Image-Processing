@@ -27,11 +27,12 @@ public class ImageProcessing {
 		for (int[] row : newCanvas) {
 			Arrays.fill(row, getColorIntValFromRGBA(rgbaWhite));
 		}
-		int[] rgbaC = {255, 255, 0, 255};
 		//int[][] randomImg = paintRandomImage(newCanvas);
-		int[][] rectangle = paintRectangle(newCanvas, 200, 200, 100, 100, getColorIntValFromRGBA(rgbaC));
+		//int[] rgbaC = {255, 255, 0, 255};
+		//int[][] rectangle = paintRectangle(newCanvas, 200, 200, 100, 100, getColorIntValFromRGBA(rgbaC));
+		int [][] generateRect = generateRectangles(newCanvas, 1000);
 		//int[][] trimmed = trimBorders(imageData, 60);
-		twoDToImage(rectangle, "./Output/rectangle_apple.jpg");
+		twoDToImage(generateRect, "./Output/generateRect.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
 	}//MAIN END
@@ -180,7 +181,22 @@ public class ImageProcessing {
 	
 	public static int[][] generateRectangles(int[][] canvas, int numRectangles) {
 		// TODO: Fill in the code for this method
-		return null;
+		Random rand = new Random();
+		
+		for(int i =0 ; i < numRectangles; i++) {
+			int height = rand.nextInt( canvas.length );
+			int width = rand.nextInt( canvas[0].length );
+			
+			int rowPosition = rand.nextInt(canvas.length - height);
+			int colPosition = rand.nextInt(canvas[0].length - width);
+			
+			int[] rgba = {rand.nextInt(256), rand.nextInt(256), rand.nextInt(256), 255};
+			int color = getColorIntValFromRGBA(rgba);
+			
+			paintRectangle(canvas, width, height, rowPosition, colPosition, color);
+			
+		}
+		return canvas;
 	}
 	
 	// Utility Methods
