@@ -19,9 +19,10 @@ public class ImageProcessing {
 		//viewImageData(imageData);
 		//int negative[][] = negativeColor(imageData);
 		//int[][] stretchedH = stretchHorizontally(imageData);
-		int[][] shrinkV = shrinkVertically(imageData);
+		//int[][] shrinkV = shrinkVertically(imageData);
+		int[][] invert = invertImage(imageData);
 		//int[][] trimmed = trimBorders(imageData, 60);
-		twoDToImage(shrinkV, "./Output/shrinkV_apple.jpg");
+		twoDToImage(invert, "./Output/invert_apple.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
 	}//MAIN END
@@ -55,7 +56,6 @@ public class ImageProcessing {
 				rgba[2] = 255 - rgba[2];
 				int hex = getColorIntValFromRGBA(rgba);
 				negativeImage[i][j] = hex;
-				
 			}
 		}
 		return negativeImage;
@@ -90,8 +90,16 @@ public class ImageProcessing {
 	
 	public static int[][] invertImage(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
-		return null;
+		int[][] invertedImg = new int[imageTwoD.length][imageTwoD[0].length];
+		
+		for (int i = 0; i < imageTwoD.length; i++) {
+			for (int j = 0; j < imageTwoD[i].length; j++) {
+				invertedImg[i][j] = imageTwoD[(imageTwoD.length - 1) - i][(imageTwoD[i].length - 1) - j];
+			}
+		}
+		return invertedImg;
 	}
+	
 	public static int[][] colorFilter(int[][] imageTwoD, int redChangeValue, int greenChangeValue, int blueChangeValue) {
 		// TODO: Fill in the code for this method
 		return null;
